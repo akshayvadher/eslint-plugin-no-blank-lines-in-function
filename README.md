@@ -1,11 +1,11 @@
-# ESLint Plugin: No Blank Lines in Functions
+# eslint-plugin-no-blank-lines-in-function
 
 An ESLint plugin that prevents blank lines inside function bodies to maintain compact, readable code.
 
 ## Installation
 
 ```bash
-npm install eslint-plugin-no-function-blank-lines --save-dev
+npm install eslint-plugin-no-blank-lines-in-function --save-dev
 ```
 
 ## Usage
@@ -14,9 +14,9 @@ Add the plugin to your `.eslintrc` configuration:
 
 ```json
 {
-  "plugins": ["no-function-blank-lines"],
+  "plugins": ["no-blank-lines-in-function"],
   "rules": {
-    "no-function-blank-lines/no-blank-lines-in-function": "error"
+    "no-blank-lines-in-function/no-blank-lines-in-function": "error"
   }
 }
 ```
@@ -29,7 +29,9 @@ This rule disallows blank lines inside function bodies for:
 - Arrow functions
 - Class methods
 
-### ❌ Incorrect
+### Examples
+
+**Incorrect:**
 
 ```javascript
 function example() {
@@ -41,7 +43,7 @@ function example() {
 }
 ```
 
-### ✅ Correct
+**Correct:**
 
 ```javascript
 function example() {
@@ -55,6 +57,23 @@ function example() {
 
 This rule supports ESLint's `--fix` option to automatically remove blank lines inside functions.
 
+```bash
+eslint --fix your-file.js
+```
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+```
+
 ## License
 
-MIT
+MIT - feel free to use this however you want.
