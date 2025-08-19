@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-no-function-blank-lines",
+  "name": "eslint-plugin-no-blank-lines-in-function",
   "version": "1.0.0",
   "description": "ESLint plugin to prevent blank lines inside functions",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "function",
     "blank-lines"
   ],
-  "author": "Your Name",
+  "author": "Akshay Vadher",
   "license": "MIT",
   "peerDependencies": {
     "eslint": ">=7.0.0"
