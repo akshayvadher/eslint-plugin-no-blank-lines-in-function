@@ -1,0 +1,15 @@
+{
+  "plugins": ["no-function-blank-lines"],
+  "rules": {
+    "no-function-blank-lines/no-blank-lines-in-function": "error"
+  },
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  }
+}
+
