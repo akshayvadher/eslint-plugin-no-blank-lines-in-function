@@ -1,10 +1,22 @@
 {
   "name": "eslint-plugin-no-blank-lines-in-function",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "ESLint plugin to prevent blank lines inside functions",
-  "main": "index.js",
-  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.cjs"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
+    "build:cjs": "esbuild src/index.js --bundle --platform=node --format=cjs --outfile=dist/cjs/index.cjs",
+    "build:esm": "esbuild src/index.js --bundle --platform=node --format=esm --outfile=dist/esm/index.js",
+    "build": "npm run build:cjs && npm run build:esm",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -35,11 +47,5 @@
   "homepage": "https://github.com/akshayvadher/eslint-plugin-no-blank-lines-in-function#readme",
   "bugs": {
     "url": "https://github.com/akshayvadher/eslint-plugin-no-blank-lines-in-function/issues"
-  },
-  "files": [
-    "index.js",
-    "rules/",
-    "README.md",
-    "LICENSE"
-  ]
+  }
 }
