@@ -8,6 +8,8 @@ RuleTester.setDefaultConfig({
   },
 });
 
+const ruleTester = new RuleTester();
+
 const validCases = [
   {
     name: "function declarations without blank lines",
@@ -159,8 +161,7 @@ const invalidCases = [
     ],
     output: `function multipleBlankLines() {
         const a = 1;
-        
-        lkjhlkjhlkjh
+
         const b = 2;
         return a + b;
       }`,
