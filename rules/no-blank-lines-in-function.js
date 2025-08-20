@@ -5,17 +5,17 @@
 
 export default {
   meta: {
-    type: 'layout',
+    type: "layout",
     docs: {
-      description: 'disallow blank lines inside function bodies',
-      category: 'Stylistic Issues',
+      description: "disallow blank lines inside function bodies",
+      category: "Stylistic Issues",
       recommended: false,
-      url: 'https://github.com/akshayvadher/eslint-plugin-no-blank-lines-in-function#readme',
+      url: "https://github.com/akshayvadher/eslint-plugin-no-blank-lines-in-function#readme",
     },
-    fixable: 'whitespace',
+    fixable: "whitespace",
     schema: [],
     messages: {
-      unexpectedBlankLine: 'Unexpected blank line inside function body.',
+      unexpectedBlankLine: "Unexpected blank line inside function body.",
     },
   },
 
@@ -28,7 +28,7 @@ export default {
      * @param {Object} node - The function node
      */
     function checkFunction(node) {
-      if (!node.body || node.body.type !== 'BlockStatement') {
+      if (!node.body || node.body.type !== "BlockStatement") {
         return;
       }
 
@@ -49,14 +49,14 @@ export default {
       for (let lineNum = startLine + 1; lineNum < endLine; lineNum++) {
         const line = lines[lineNum - 1]; // lines array is 0-indexed
 
-        if (line.trim() === '') {
+        if (line.trim() === "") {
           // Check if this blank line has content before and after it
           let hasContentBefore = false;
           let hasContentAfter = false;
 
           // Check for content before
           for (let i = lineNum - 1; i > startLine; i--) {
-            if (lines[i - 1].trim() !== '') {
+            if (lines[i - 1].trim() !== "") {
               hasContentBefore = true;
               break;
             }
@@ -64,7 +64,7 @@ export default {
 
           // Check for content after
           for (let i = lineNum + 1; i < endLine; i++) {
-            if (lines[i - 1].trim() !== '') {
+            if (lines[i - 1].trim() !== "") {
               hasContentAfter = true;
               break;
             }
@@ -77,7 +77,7 @@ export default {
                 start: { line: lineNum, column: 0 },
                 end: { line: lineNum, column: line.length },
               },
-              messageId: 'unexpectedBlankLine',
+              messageId: "unexpectedBlankLine",
               fix(fixer) {
                 // Calculate the range of the blank line
                 const startOfLine = sourceCode.getIndexFromLoc({
@@ -103,7 +103,11 @@ export default {
       FunctionExpression: checkFunction,
       ArrowFunctionExpression: checkFunction,
       MethodDefinition(node) {
-        if (node.value && (node.value.type === 'FunctionExpression' || node.value.type === 'ArrowFunctionExpression')) {
+        if (
+          node.value &&
+          (node.value.type === "FunctionExpression" ||
+            node.value.type === "ArrowFunctionExpression")
+        ) {
           checkFunction(node.value);
         }
       },
