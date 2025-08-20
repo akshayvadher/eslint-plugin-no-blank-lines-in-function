@@ -46,55 +46,33 @@ export default {
       const endLine = functionBody.loc.end.line;
 
       // Check each line within the function body (excluding braces)
+      // Collect all blank line ranges inside the function body
+      const blankLineNumbers = [];
       for (let lineNum = startLine + 1; lineNum < endLine; lineNum++) {
-        const line = lines[lineNum - 1]; // lines array is 0-indexed
-
+        const line = lines[lineNum - 1];
         if (line.trim() === "") {
-          // Check if this blank line has content before and after it
-          let hasContentBefore = false;
-          let hasContentAfter = false;
-
-          // Check for content before
-          for (let i = lineNum - 1; i > startLine; i--) {
-            if (lines[i - 1].trim() !== "") {
-              hasContentBefore = true;
-              break;
-            }
-          }
-
-          // Check for content after
-          for (let i = lineNum + 1; i < endLine; i++) {
-            if (lines[i - 1].trim() !== "") {
-              hasContentAfter = true;
-              break;
-            }
-          }
-
-          if (hasContentBefore && hasContentAfter) {
-            context.report({
-              node: functionBody,
-              loc: {
-                start: { line: lineNum, column: 0 },
-                end: { line: lineNum, column: line.length },
-              },
-              messageId: "unexpectedBlankLine",
-              fix(fixer) {
-                // Calculate the range of the blank line
-                const startOfLine = sourceCode.getIndexFromLoc({
-                  line: lineNum,
-                  column: 0,
-                });
-                const endOfLine = sourceCode.getIndexFromLoc({
-                  line: lineNum + 1,
-                  column: 0,
-                });
-
-                // Remove the entire blank line including the newline
-                return fixer.removeRange([startOfLine, endOfLine]);
-              },
-            });
-          }
+          blankLineNumbers.push(lineNum);
         }
+      }
+      if (blankLineNumbers.length > 0) {
+        // Only report once per function body, but fix all blank lines at once
+        context.report({
+          node: functionBody,
+          loc: {
+            start: { line: blankLineNumbers[0], column: 0 },
+            end: { line: blankLineNumbers[0], column: 0 },
+          },
+          messageId: "unexpectedBlankLine",
+          fix(fixer) {
+            // Remove all blank lines in the function body
+            const fixes = blankLineNumbers.map(lineNum => {
+              const startOfLine = sourceCode.getIndexFromLoc({ line: lineNum, column: 0 });
+              const endOfLine = sourceCode.getIndexFromLoc({ line: lineNum + 1, column: 0 });
+              return fixer.removeRange([startOfLine, endOfLine]);
+            });
+            return fixes;
+          },
+        });
       }
     }
 
