@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint";
-import plugin from "../index.js";
+import plugin from "../src/index";
 
 RuleTester.setDefaultConfig({
   languageOptions: {
