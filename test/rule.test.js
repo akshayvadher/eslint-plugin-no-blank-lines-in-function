@@ -1,17 +1,14 @@
-import { describe, it } from 'vitest';
-import { RuleTester } from 'eslint';
+import {RuleTester} from 'eslint';
 import plugin from '../index.js';
 
-const ruleTester = new RuleTester({
-  parserOptions: {
+RuleTester.setDefaultConfig({
+  languageOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
   },
 });
 
-describe('ESLint Plugin: no-blank-lines-in-function', () => {
-
-  const validCases = [
+const validCases = [
     {
       name: 'function declarations without blank lines',
       code: `function test() {
@@ -86,7 +83,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
     }
   ];
 
-  const invalidCases = [
+const invalidCases = [
     {
       name: 'blank lines in function declarations',
       code: `function test() {
@@ -95,7 +92,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
         const b = 2;
         return a + b;
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `function test() {
         const a = 1;
         const b = 2;
@@ -109,7 +106,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
 
         console.log('end');
       };`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `const test = () => {
         console.log('start');
         console.log('end');
@@ -122,7 +119,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
 
         return x * 2;
       };`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `const test = function() {
         const x = 1;
         return x * 2;
@@ -137,7 +134,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
           return value;
         }
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `class TestClass {
         method() {
           const value = 42;
@@ -156,13 +153,14 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
         return a + b;
       }`,
       errors: [
-        { messageId: 'unexpectedBlankLine', type: 'BlockStatement' },
-        { messageId: 'unexpectedBlankLine', type: 'BlockStatement' },
-        { messageId: 'unexpectedBlankLine', type: 'BlockStatement' },
+        {messageId: 'unexpectedBlankLine', type: 'BlockStatement'},
+        {messageId: 'unexpectedBlankLine', type: 'BlockStatement'},
+        {messageId: 'unexpectedBlankLine', type: 'BlockStatement'},
       ],
       output: `function multipleBlankLines() {
         const a = 1;
-
+        
+        lkjhlkjhlkjh
         const b = 2;
         return a + b;
       }`
@@ -174,7 +172,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
 
         return data.value;
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `async function asyncTest() {
         const data = await fetchData();
         return data.value;
@@ -187,7 +185,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
 
         yield 2;
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `function* generator() {
         yield 1;
         yield 2;
@@ -202,7 +200,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
           this.name = 'test';
         }
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `class MyClass {
         constructor() {
           this.value = 1;
@@ -219,7 +217,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
           return result;
         }
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `class MyClass {
         static staticMethod() {
           const result = calculate();
@@ -236,7 +234,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
         // Comment after blank line
         return a;
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `function withCommentsAndBlankLine() {
         // Comment before
         const a = 1;
@@ -254,7 +252,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
         }
         return inner();
       }`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `function outer() {
         const x = 1;
         function inner() {
@@ -274,8 +272,8 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
         return inner();
       }`,
       errors: [
-        { messageId: 'unexpectedBlankLine', type: 'BlockStatement' },
-        { messageId: 'unexpectedBlankLine', type: 'BlockStatement' },
+        {messageId: 'unexpectedBlankLine', type: 'BlockStatement'},
+        {messageId: 'unexpectedBlankLine', type: 'BlockStatement'},
       ],
       output: `function outer() {
         function inner() {
@@ -294,7 +292,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
           return a;
         }
       };`,
-      errors: [{ messageId: 'unexpectedBlankLine', type: 'BlockStatement' }],
+      errors: [{messageId: 'unexpectedBlankLine', type: 'BlockStatement'}],
       output: `const obj = {
         method() {
           const a = 1;
@@ -304,25 +302,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
     }
   ];
 
-  describe('Valid Cases (should NOT trigger the rule)', () => {
-    it.each(validCases)('should allow $name', ({ code }) => {
-      ruleTester.run('test', plugin.rules['no-blank-lines-in-function'], {
-        valid: [code],
-        invalid: []
-      });
-    });
-  });
-
-  describe('Invalid Cases (should trigger the rule)', () => {
-    it.each(invalidCases)('should flag $name', ({ code, errors, output }) => {
-      ruleTester.run('test', plugin.rules['no-blank-lines-in-function'], {
-        valid: [],
-        invalid: [{
-          code,
-          errors,
-          output
-        }]
-      });
-    });
-  });
+ruleTester.run('no-blank-lines-in-function', plugin.rules['no-blank-lines-in-function'], {
+  valid: validCases.map(({code}) => code),
+  invalid: invalidCases.map(({code, errors, output}) => ({code, errors, output})),
 });
