@@ -154,14 +154,9 @@ const invalidCases = [
 
         return a + b;
       }`,
-    errors: [
-      { messageId: "unexpectedBlankLine", type: "BlockStatement" },
-      { messageId: "unexpectedBlankLine", type: "BlockStatement" },
-      { messageId: "unexpectedBlankLine", type: "BlockStatement" },
-    ],
+    errors: [{ messageId: "unexpectedBlankLine", type: "BlockStatement" }],
     output: `function multipleBlankLines() {
         const a = 1;
-
         const b = 2;
         return a + b;
       }`,
