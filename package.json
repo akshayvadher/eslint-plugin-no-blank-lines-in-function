@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-no-blank-lines-in-function",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "ESLint plugin to prevent blank lines inside functions",
   "main": "index.js",
   "type": "module",
