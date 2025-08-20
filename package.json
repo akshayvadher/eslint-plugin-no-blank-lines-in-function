@@ -26,5 +26,19 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshayvadher/eslint-plugin-no-blank-lines-in-function.git"
+  },
+  "homepage": "https://github.com/akshayvadher/eslint-plugin-no-blank-lines-in-function#readme",
+  "bugs": {
+    "url": "https://github.com/akshayvadher/eslint-plugin-no-blank-lines-in-function/issues"
+  },
+  "files": [
+    "index.js",
+    "rules/",
+    "README.md",
+    "LICENSE"
+  ]
 }
