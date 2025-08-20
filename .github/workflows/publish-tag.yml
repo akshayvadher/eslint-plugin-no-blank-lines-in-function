@@ -48,6 +48,9 @@ jobs:
       - name: Update package.json version
         run: npm version ${{ steps.version.outputs.VERSION }} --no-git-tag-version
 
+      - name: Build package
+        run: npm run build
+
       - name: Publish to NPM
         run: npm publish
         env:
