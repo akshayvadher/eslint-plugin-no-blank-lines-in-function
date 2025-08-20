@@ -10,6 +10,16 @@ npm install eslint-plugin-no-blank-lines-in-function --save-dev
 
 ## Usage
 
+### Using the recommended configuration
+
+```json
+{
+  "extends": ["plugin:no-blank-lines-in-function/recommended"]
+}
+```
+
+### Manual configuration
+
 Add the plugin to your `.eslintrc` configuration:
 
 ```json

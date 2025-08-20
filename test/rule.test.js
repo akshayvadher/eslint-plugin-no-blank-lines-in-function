@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest';
 import { RuleTester } from 'eslint';
-import rule from '../index.js';
+import plugin from '../index.js';
 
 const ruleTester = new RuleTester({
   parserOptions: {
@@ -306,7 +306,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
 
   describe('Valid Cases (should NOT trigger the rule)', () => {
     it.each(validCases)('should allow $name', ({ code }) => {
-      ruleTester.run('test', rule.rules['no-blank-lines-in-function'], {
+      ruleTester.run('test', plugin.rules['no-blank-lines-in-function'], {
         valid: [code],
         invalid: []
       });
@@ -315,7 +315,7 @@ describe('ESLint Plugin: no-blank-lines-in-function', () => {
 
   describe('Invalid Cases (should trigger the rule)', () => {
     it.each(invalidCases)('should flag $name', ({ code, errors, output }) => {
-      ruleTester.run('test', rule.rules['no-blank-lines-in-function'], {
+      ruleTester.run('test', plugin.rules['no-blank-lines-in-function'], {
         valid: [],
         invalid: [{
           code,
